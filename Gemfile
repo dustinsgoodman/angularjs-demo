@@ -9,6 +9,10 @@ gem 'bower-rails', '~> 0.7.1'
 
 gem 'rabl', '~> 0.11.6'
 
+# Authentication Gems
+gem 'omniauth', '~> 1.2.2'
+gem 'devise_token_auth', '~> 0.1.30'
+
 group :test, :development do
   gem 'byebug', '~> 4.0.5'
   gem 'factory_girl_rails', '~> 4.5.0'
