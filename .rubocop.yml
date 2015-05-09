@@ -1,0 +1,47 @@
+# Gradual enforcement
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Include:
+    - 'config.ru'
+    - 'Gemfile'
+    - '**/Rakefile'
+    - '**/*.rabl'
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'spec/teaspoon_env.rb'
+    - 'vendor/assets/bower_components/**/*'
+    - 'vendor/bundle/**/*'
+    - 'vendor/ruby/**/*'
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Style/Semicolon:
+  Enabled: true
+  AllowAsExpressionSeparator: true
+
+Style/UnlessElse:
+  Enabled: false
+
+Style/TrivialAccessors:
+  Enabled: false
+
+Style/TrailingWhitespace:
+  Enabled: true
+
+Lint/LiteralInCondition:
+  Enabled: false
+
+Lint/HandleExceptions:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false

@@ -1,0 +1,87 @@
+{
+  // JSHint Default Configuration File (as on JSHint website)
+  // See http://jshint.com/docs/ for more details
+  "maxerr": 50, // {int} Maximum error before stopping
+
+  // Enforcing
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": false,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonbsp": true,
+  "nonew": false,
+  "plusplus": false,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "maxparams": false,
+  "maxdepth": false,
+  "maxstatements": false,
+  "maxcomplexity": false,
+  "maxlen": 80,
+
+  // Relaxing
+  "asi": false,
+  "boss": false,
+  "debug": false,
+  "eqnull": true,
+  "es5": false,
+  "esnext": false,
+  "moz": false,
+  "evil": false,
+  "expr": false,
+  "funcscope": false, // might turn this off for now
+  "globalstrict": false,
+  "iterator": false,
+  "lastsemic": false,
+  "laxbreak": false,
+  "laxcomma": false,
+  "loopfunc": false,
+  "multistr": true,
+  "noyield": false,
+  "notypeof": false,
+  "proto": false,
+  "scripturl": false,
+  "shadow": false,
+  "sub": true, // this is on because of non-camel case vars
+  "supernew": false,
+  "validthis": true,
+
+  // Environments
+  "browser": true,      // Web Browser (window, document, etc)
+  "browserify": false,  // Browserify (node.js code in the browser)
+  "couch": false,       // CouchDB
+  "devel": true,        // Development/debugging (alert, confirm, etc)
+  "dojo": false,        // Dojo Toolkit
+  "jasmine": true,      // Jasmine
+  "jquery": true,       // jQuery
+  "mocha" : true,       // Mocha
+  "mootools": false,    // MooTools
+  "node": false,        // Node.js
+  "nonstandard": false, // Widely adopted globals (escape, unescape, etc)
+  "prototypejs": false, // Prototype and Scriptaculous
+  "qunit": false,       // QUnit
+  "rhino": false,       // Rhino
+  "shelljs": false,     // ShellJS
+  "worker": false,      // Web Workers
+  "wsh": false,         // Windows Scripting Host
+  "yui": false,         // Yahoo User Interface
+
+  // Custom Globals
+  "globals": {
+    "angular": true,
+    "inject": true,
+    "module": true,
+    "moment": true,
+    "_": true
+  }
+}
