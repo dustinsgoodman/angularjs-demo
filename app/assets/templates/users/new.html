@@ -1,0 +1,65 @@
+<form data-ng-submit="register.submitRegistration()" role="form">
+  <div class="form-group">
+    <label for="email">
+      Email
+    </label>
+    <input type="email"
+           name="email"
+           id="email"
+           data-ng-model="register.user.email"
+           required="required"
+           class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="password">
+      Password
+    </label>
+    <input type="password"
+           name="password"
+           id="password"
+           data-ng-model="register.user.password"
+           required="required"
+           class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="password_confirmation">
+      Password confirmation
+    </label>
+    <input type="password"
+           name="password_confirmation"
+           id="password_confirmation"
+           data-ng-model="register.user.password_confirmation"
+           required="required"
+           class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="password_confirmation">
+      First Name
+    </label>
+    <input type="text"
+           name="first_name"
+           id="first_name"
+           data-ng-model="register.user.first_name"
+           required="required"
+           class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="password_confirmation">
+      Last Name
+    </label>
+    <input type="text"
+           name="last_name"
+           id="last_name"
+           data-ng-model="register.user.last_name"
+           required="required"
+           class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    Register
+  </button>
+</form>

@@ -1,0 +1,43 @@
+//= require_self
+//= require_tree ./directives
+//= require_tree ./services
+//= require_tree ./controllers
+
+(function () {
+  'use strict';
+
+  angular
+    .module('TodoApp', [
+      'ngRoute',
+      'ngResource'
+    ])
+    .config(locationSettings)
+    .config(routeSettings);
+
+  locationSettings.$inject = ['$locationProvider'];
+  function locationSettings($locationProvider) {
+    $locationProvider.html5Mode({
+      enabled: true
+    });
+  }
+
+  routeSettings.$inject = ['$routeProvider'];
+  function routeSettings($routeProvider) {
+    $routeProvider
+      .when('/register', {
+        templateUrl: '<%= asset_path("users/new.html") %>',
+        controller: 'RegisterCtrl',
+        controllerAs: 'register'
+      })
+      .when('/login', {
+        templateUrl: '<%= asset_path("sessions/new.html") %>',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
+      })
+      .when('/', {
+        templateUrl: '<%= asset_path("todos/index.html") %>',
+        controller: 'TodosCtrl',
+        controllerAs: 'todos'
+      });
+  }
+})();

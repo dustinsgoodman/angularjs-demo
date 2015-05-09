@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  auth:
+    session_expired: Your session has expired. Please login again to continue.
+    invalid_session: You are trying to access a page you do not have access to, please login to continue.
