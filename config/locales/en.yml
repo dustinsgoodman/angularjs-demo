@@ -24,3 +24,19 @@ en:
   auth:
     session_expired: Your session has expired. Please login again to continue.
     invalid_session: You are trying to access a page you do not have access to, please login to continue.
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: cant_be_blank
+              taken: taken
+              invalid: wrong_format
+            password:
+              blank: cant_be_blank
+              too_short: too_short
+            password_confirmation:
+              blank: cant_be_blank
+              confirmation: must_match_password
