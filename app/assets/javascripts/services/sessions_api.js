@@ -16,9 +16,6 @@
         headers: headers,
         params: {
           action: 'sign_in'
-        },
-        transformRequest: function(data) {
-          return angular.toJson({session: data});
         }
       },
       'destroy': {
