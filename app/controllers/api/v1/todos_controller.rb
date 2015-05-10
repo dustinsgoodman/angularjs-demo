@@ -1,16 +1,16 @@
 class API::V1::TodosController < ApplicationController
   respond_to :json
 
-  before_filter :authenticate_user!
+  before_action :authenticate_api_v1_user!
   before_filter :get_todo, only: [:show, :update, :destroy]
 
   def index
-    @todos = current_user.todos
+    @todos = current_api_v1_user.todos
     respond_with @todos
   end
 
   def create
-    @todo = current_user.todos.new(todo_params)
+    @todo = current_api_v1_user.todos.new(todo_params)
     if @todo.save
       respond_with @todo, location: nil, status: :created
     else
