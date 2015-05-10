@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   include DeviseTokenAuth::Concerns::User
 
+  has_many :todos
+
   before_validation :set_defaults
   before_save :skip_devise_steps, :sanitize_params
 
