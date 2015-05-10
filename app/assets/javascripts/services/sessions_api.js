@@ -10,21 +10,23 @@
     var headers = {
       'Accept': 'application/json'
     };
-    return $resource('/api/v1/auth/sign_in', null, {
+    return $resource('/api/v1/auth/:action', null, {
       'create': {
         method: 'POST',
         headers: headers,
+        params: {
+          action: 'sign_in'
+        },
         transformRequest: function(data) {
           return angular.toJson({session: data});
         }
       },
-      'update': {
-        method: 'PUT',
-        headers: headers
-      },
       'destroy': {
         method: 'DELETE',
-        headers: headers
+        headers: headers,
+        params: {
+          action: 'sign_out'
+        }
       }
     });
   }
