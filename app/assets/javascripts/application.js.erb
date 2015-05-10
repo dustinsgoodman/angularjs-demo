@@ -12,7 +12,8 @@
       'ngResource'
     ])
     .config(locationSettings)
-    .config(routeSettings);
+    .config(routeSettings)
+    .config(httpSettings);
 
   locationSettings.$inject = ['$locationProvider'];
   function locationSettings($locationProvider) {
@@ -37,7 +38,74 @@
       .when('/', {
         templateUrl: '<%= asset_path("todos/index.html") %>',
         controller: 'TodosCtrl',
-        controllerAs: 'todos'
+        controllerAs: 'todos',
+        resolve: {
+          todos: getTodos
+        }
       });
+
+    getTodos.$inject = ['todosApi'];
+    function getTodos(todosApi) {
+      return todosApi.index().$promise;
+    }
+  }
+
+  httpSettings.$inject = ['$httpProvider'];
+  function httpSettings($httpProvider) {
+    $httpProvider.interceptors.push(interceptors);
+    _.each(['get', 'post', 'put', 'patch', 'delete'], function (method) {
+      var headers = $httpProvider.defaults.headers;
+      if (_.isUndefined(headers[method]) || _.isNull(headers[method])) {
+        headers[method] = {};
+      }
+      $httpProvider.defaults.headers[method]['If-Modified-Since'] =
+        'Mon, 26 Jul 1997 05:00:00 GMT';
+    });
+
+    interceptors.$inject = ['auth'];
+    function interceptors(auth) {
+      return {
+        request: request,
+        response: response,
+        responseError: responseError
+      };
+
+      function request(req) {
+        _.each(auth.getAuthHeaders(), function (val, key) {
+          req.headers[key] = val;
+        });
+        return req;
+      }
+
+      function response(resp) {
+        updateHeadersFromResponse(auth, resp);
+        return resp;
+      }
+
+      function responseError(resp) {
+        updateHeadersFromResponse(auth, resp);
+        return resp;
+      }
+    }
+
+    function tokenIsCurrent(auth, headers) {
+      var newTokenExpiry, oldTokenExpiry;
+      oldTokenExpiry = Number(auth.getExpiry());
+      newTokenExpiry = Number(auth.parseExpiry(headers || {}));
+      return newTokenExpiry >= oldTokenExpiry;
+    }
+
+    function updateHeadersFromResponse(auth, resp) {
+      var newHeaders = {};
+      _.each(auth.tokenFormat(), function (val, key) {
+        if (resp.headers(key)) {
+          newHeaders[key] = resp.headers(key);
+        }
+      });
+
+      if (tokenIsCurrent(auth, newHeaders)) {
+        auth.setAuthHeaders(newHeaders);
+      }
+    }
   }
 })();
