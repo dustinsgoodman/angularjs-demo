@@ -1,5 +1,3 @@
-//= require services/users_api
-
 describe('usersApi', function () {
   'use strict';
 

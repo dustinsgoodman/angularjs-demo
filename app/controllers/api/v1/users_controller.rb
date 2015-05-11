@@ -9,24 +9,14 @@ class API::V1::UsersController < DeviseTokenAuth::ApplicationController
     @user.provider = 'email'
     begin
       if @user.save
-        client_id = SecureRandom.urlsafe_base64(nil, false)
-        token = SecureRandom.urlsafe_base64(nil, false)
-
-        @user.tokens[@client_id] = {
-          token: BCrypt::Password.create(@token),
-          expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
-        }
-        @user.save!
-
+        set_tokens
         update_auth_header
         respond_with @user, status: :created
       else
-        clean_up_passwords @user
-        respond_with @user, status: :unprocessable_entity
+        handle_errors
       end
     rescue ActiveRecord::RecordNotUnique
-      clean_up_passwords @user
-      respond_with @user, status: :unprocessable_entity
+      handle_errors
     end
   end
 
@@ -57,5 +47,21 @@ class API::V1::UsersController < DeviseTokenAuth::ApplicationController
     params.require(:user)
       .permit(:email, :password, :password_confirmation,
               :first_name, :last_name)
+  end
+
+  def set_tokens
+    client_id = SecureRandom.urlsafe_base64(nil, false)
+    token = SecureRandom.urlsafe_base64(nil, false)
+
+    @user.tokens[@client_id] = {
+      token: BCrypt::Password.create(@token),
+      expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
+    }
+    @user.save!
+  end
+
+  def handle_errors
+    clean_up_passwords @user
+    respond_with @user, status: :unprocessable_entity
   end
 end

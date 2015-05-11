@@ -1,5 +1,3 @@
-//= require services/sessions_api
-
 describe('sessionsApi', function () {
   'use strict';
 

@@ -14,4 +14,3 @@ describe API::V1::TodosController do
     end
   end
 end
-

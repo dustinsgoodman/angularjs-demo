@@ -9,7 +9,7 @@ node :attributes do |user|
   }
 end
 
-node :errors, :if => lambda { |user| user.invalid? } do |user|
+node :errors, if: lambda { |user| user.invalid? } do |user|
   user.errors.messages.map do |field, errors|
     errors.uniq.map do |err|
       {

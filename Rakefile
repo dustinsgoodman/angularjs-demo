@@ -6,4 +6,4 @@ require File.expand_path('../config/application', __FILE__)
 Rails.application.load_tasks
 
 task(:default).clear
-task default: [:rubocop, :spec, :jshint, :teaspoon]
+task default: [:rubocop, :spec, :teaspoon]

@@ -26,19 +26,19 @@ cap:           false     # true if upper case HTML should be allowed
 css:           false     # true if CSS workarounds should be tolerated
 curly:         true      # true if curly braces around blocks should be required (even in if/for/while)
 eqeqeq:        true      # true if === should be required (for ALL equality comparisons)
-forin:         false     # true if unfiltered 'for in' statements should be allowed
+forin:         true     # true if unfiltered 'for in' statements should be allowed
 fragment:      false     # true if HTML fragments should be allowed
 freeze:        true
 immed:         true      # true if immediate function invocations must be wrapped in parens
 indent:        2         # Number of spaces that should be used for indentation - used only if 'white' option is set
-latedef:       false
+latedef:       nofunc
 newcap:        true      # true if Initial Caps must be used with constructor functions
 newstat:       false
 noarg:         true      # true if arguments.caller and arguments.callee should be disallowed
 noempty:       true      # true if empty blocks should be disallowed
 nomen:         false     # true if initial or trailing underscore in identifiers should be forbidden
 nonbsp:        true
-nonew:         true      # true if using `new` for side-effects should be disallowed
+nonew:         false      # true if using `new` for side-effects should be disallowed
 on:            false     # true if HTML event handlers (e.g. onclick="...") should be allowed
 onevar:        false     # true if only one var statement per function should be allowed
 plusplus:      false     # true if ++ and -- should not be allowed
@@ -47,12 +47,12 @@ regexp:        false     # true if . and [^...] should not be allowed in RegExp 
 undef:         true      # true if variables must be declared before used
 unused:        true
 white:         false     # true if strict whitespace rules apply (see also 'indent' option)
-strict:        false     # true if the ES5 "use strict"; pragma is required
+strict:        true     # true if the ES5 "use strict"; pragma is required
 maxparams:     false
 maxdepth:      false
 maxstatements: false
 maxcomplexity: false
-maxlen:        160       # Maximum line length
+maxlen:        80       # Maximum line length
 
 # Relaxing
 asi:          false     # true if automatic semicolon insertion should be tolerated
@@ -70,7 +70,7 @@ iterator:     false
 lastsemic:    false
 laxbreak:     false     # true if statement breaks should not be checked
 laxcomma:     false
-loopfunc:     true      # true if functions should be allowed to be defined within loops
+loopfunc:     false      # true if functions should be allowed to be defined within loops
 multistr:     true
 noyield:      false
 notypeof:     false
@@ -87,7 +87,7 @@ adsafe:      false     # true if ADsafe rules should be enforced. See http://www
 browser:     true      # true if the standard browser globals should be predefined
 browserify:  false
 couch:       true      # true if CouchDB globals should be predefined
-devel:       false     # true if functions like alert, confirm, console, prompt etc. are predefined
+devel:       true     # true if functions like alert, confirm, console, prompt etc. are predefined
 dojo:        false
 jasmine:     true
 jquery:      true

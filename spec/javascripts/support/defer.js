@@ -29,7 +29,6 @@ beforeEach(function() {
     };
   }
 
-  // newslettersProviderApiService.campaigns({ campaignId: 123 }, _success, _error)
   function mockNgResource($defer) {
     return function $mockNgResource() {
       var deferred;

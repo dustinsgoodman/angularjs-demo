@@ -3,5 +3,6 @@ FactoryGirl.define do
     task { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     complete { [true, false].sample }
+    user
   end
 end
