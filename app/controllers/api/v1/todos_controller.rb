@@ -41,7 +41,7 @@ class API::V1::TodosController < ApplicationController
   private
 
   def get_todo
-    @todo = current_user.todos.find(params[:id])
+    @todo = current_api_v1_user.todos.find(params[:id])
   end
 
   def todo_params
