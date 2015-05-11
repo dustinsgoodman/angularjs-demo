@@ -108,4 +108,34 @@
       }
     }
   }
+
+  // restangularSettings.$inject = ['RestangularProvider'];
+  // function restangularSettings(RestangularProvider) {
+  //   RestangularProvider.setBaseUrl('/api');
+  //   RestangularProvider.setFullResponse(true);
+  //   RestangularProvider.setDefaultHeaders({
+  //     'X-CSRF-Token': _.find(document.getElementsByTagName('meta'), function (meta) {
+  //       return meta.getAttribute('name') === 'csrf-token';
+  //     }).getAttribute('content')
+  //   });
+  //   // RestangularProvider.addResponseInterceptor(interceptor);
+
+  //   function interceptor($location, $q) {
+  //     return function(data, operation, what, url, response, deferred) {
+  //       return deferred.then(_success, _error);
+  //     };
+
+  //     function _success(resp) {
+  //       return resp;
+  //     }
+
+  //     function _error(resp) {
+  //       if (resp.status === 401) {
+  //         $location.path('/login');
+  //         return resp;
+  //       }
+  //       return $q.reject(resp);
+  //     }
+  //   }
+  // }
 })();
