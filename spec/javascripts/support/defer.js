@@ -30,12 +30,20 @@ beforeEach(function() {
   }
 
   function mockNgResource($defer) {
-    return function $mockNgResource() {
-      var deferred;
+    return function $mockNgResource(isGet) {
+      var deferred, fn;
+      isGet = !!isGet;
 
-      function fn(params, success, error) {
-        deferred = $defer();
-        return { $promise: deferred().then(success, error) };
+      if (isGet) {
+        fn = function (params, success, error) {
+          deferred = $defer();
+          return { $promise: deferred().then(success, error) };
+        };
+      } else {
+        fn = function (params, postData, success, error) {
+          deferred = $defer();
+          return { $promise: deferred().then(success, error) };
+        };
       }
 
       fn.$resolve = function () {
