@@ -1,0 +1,27 @@
+(function () {
+  'use strict';
+
+  angular
+    .module('TodoApp')
+    .directive('dgTodo', dgTodo);
+
+  dgTodo.$inject = ['todosApi'];
+  function dgTodo(todosApi) {
+    return {
+      restrict: 'A',
+      link: link,
+      templateUrl: '<%= asset_path("directives/todo.html") %>',
+      scope: {
+        todo: '=dgTodo'
+      }
+    };
+
+    function link(scope, elem, attr) {
+      scope.toggleComplete = toggleComplete;
+
+      function toggleComplete() {
+        todosApi.update({ id: scope.todo.id }, scope.todo);
+      }
+    }
+  }
+})();

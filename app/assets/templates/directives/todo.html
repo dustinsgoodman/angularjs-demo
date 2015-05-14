@@ -1,0 +1,6 @@
+<div data-ng-class="{'complete': todo.complete}">
+  <input type="checkbox"
+         data-ng-model="todo.complete"
+         data-ng-change="toggleComplete()">
+  {{todo.task}}
+</div>
