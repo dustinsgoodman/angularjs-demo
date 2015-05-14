@@ -7,25 +7,24 @@
 
   auth.$inject = ['$window'];
   function auth($window) {
-    return {
-      tokenFormat: tokenFormat,
-      setAuthHeaders: setAuthHeaders,
+    var tokenFormat, api;
+
+    tokenFormat = {
+      'access-token': '{{ token }}',
+      'token-type': 'Bearer',
+      'client': '{{ clientId }}',
+      'expiry': '{{ expiry }}',
+      'uid': '{{ uid }}'
+    };
+    api = {
       getAuthHeaders: getAuthHeaders,
       getExpiry: getExpiry,
-      parseExpiry: parseExpiry
+      parseExpiry: parseExpiry,
+      updateHeadersFromResponse: updateHeadersFromResponse
     };
+    return api;
 
-    function tokenFormat() {
-      return {
-        'access-token': '{{ token }}',
-        'token-type': 'Bearer',
-        'client': '{{ clientId }}',
-        'expiry': '{{ expiry }}',
-        'uid': '{{ uid }}'
-      };
-    }
-
-    function setAuthHeaders(newHeaders) {
+    function _setAuthHeaders(newHeaders) {
       var result;
       result = angular.extend(_retrieveData('auth_headers'), newHeaders);
       _persistData('auth_headers', result);
@@ -34,6 +33,19 @@
 
     function getAuthHeaders() {
       return _retrieveData('auth_headers');
+    }
+
+    function updateHeadersFromResponse(resp) {
+      var newHeaders = {};
+      _.each(tokenFormat, function (val, key) {
+        if (resp.headers(key)) {
+          newHeaders[key] = resp.headers(key);
+        }
+      });
+
+      if (_tokenIsCurrent(newHeaders)) {
+        return _setAuthHeaders(newHeaders);
+      }
     }
 
     function getExpiry() {
@@ -50,6 +62,13 @@
 
     function _retrieveData(key) {
       return JSON.parse($window.localStorage.getItem(key)) || {};
+    }
+
+    function _tokenIsCurrent(headers) {
+      var newTokenExpiry, oldTokenExpiry;
+      oldTokenExpiry = Number(getExpiry());
+      newTokenExpiry = Number(parseExpiry(headers || {}));
+      return newTokenExpiry >= oldTokenExpiry;
     }
   }
 })();

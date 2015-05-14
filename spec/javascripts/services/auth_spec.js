@@ -12,33 +12,47 @@ describe('auth', function () {
     $window.localStorage.removeItem('auth_headers');
   });
 
-  describe('#tokenFormat', function () {
-    it('should return the tokenFormat object', function () {
-      expect(subject.tokenFormat()).toEqual({
-        'access-token': '{{ token }}',
-        'token-type': 'Bearer',
-        'client': '{{ clientId }}',
-        'expiry': '{{ expiry }}',
-        'uid': '{{ uid }}'
+  describe('#updateHeadersFromResponse', function () {
+    var resp;
+
+    describe('when the token is current', function () {
+      beforeEach(function () {
+        $window.localStorage.setItem('auth_headers', JSON.stringify({expiry: 10}));
+        resp = {
+          headers: jasmine.createSpy('headers').andReturn(100)
+        };
+      });
+
+      it('sets the localStorage persistance of the new headers', function () {
+        subject.updateHeadersFromResponse(resp);
+        expect(
+          JSON.parse($window.localStorage.getItem('auth_headers'))
+        ).toEqual({
+          'access-token': 100,
+          'token-type': 100,
+          'client': 100,
+          'expiry': 100,
+          'uid' : 100
+        });
       });
     });
-  });
 
-  describe('#setAuthHeaders', function () {
-    var result;
-    beforeEach(function () {
-      result = { data: 'test' };
-    });
+    describe('when the token is expired', function () {
+      beforeEach(function () {
+        $window.localStorage.setItem('auth_headers', JSON.stringify({expiry: 100}));
+        resp = {
+          headers: jasmine.createSpy('headers').andReturn(10)
+        };
+      });
 
-    it('sets the localStorage persistance of the new headers', function () {
-      subject.setAuthHeaders(result);
-      expect(
-        JSON.parse($window.localStorage.getItem('auth_headers'))
-      ).toEqual(result);
-    });
-
-    it('returns the new headers', function () {
-      expect(subject.setAuthHeaders(result)).toEqual(result);
+      it('does not change the localStorage persistance', function () {
+        subject.updateHeadersFromResponse(resp);
+        expect(
+          JSON.parse($window.localStorage.getItem('auth_headers'))
+        ).toEqual({
+          'expiry': 100,
+        });
+      });
     });
   });
 

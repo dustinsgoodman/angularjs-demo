@@ -75,8 +75,8 @@
         'Mon, 26 Jul 1997 05:00:00 GMT';
     });
 
-    interceptors.$inject = ['$q', 'auth'];
-    function interceptors($q, auth) {
+    interceptors.$inject = ['$q', '$location', 'auth'];
+    function interceptors($q, $location, auth) {
       return {
         request: request,
         response: response,
@@ -91,33 +91,16 @@
       }
 
       function response(resp) {
-        updateHeadersFromResponse(auth, resp);
+        auth.updateHeadersFromResponse(resp);
         return resp;
       }
 
       function responseError(resp) {
-        updateHeadersFromResponse(auth, resp);
-        return $q.reject(resp);
-      }
-    }
-
-    function tokenIsCurrent(auth, headers) {
-      var newTokenExpiry, oldTokenExpiry;
-      oldTokenExpiry = Number(auth.getExpiry());
-      newTokenExpiry = Number(auth.parseExpiry(headers || {}));
-      return newTokenExpiry >= oldTokenExpiry;
-    }
-
-    function updateHeadersFromResponse(auth, resp) {
-      var newHeaders = {};
-      _.each(auth.tokenFormat(), function (val, key) {
-        if (resp.headers(key)) {
-          newHeaders[key] = resp.headers(key);
+        auth.updateHeadersFromResponse(resp);
+        if (resp.status === 401) {
+          $location.path('/login');
         }
-      });
-
-      if (tokenIsCurrent(auth, newHeaders)) {
-        auth.setAuthHeaders(newHeaders);
+        return $q.reject(resp);
       }
     }
   }
