@@ -1,3 +1,3 @@
-object @todos => :data
+object @todo => :data
 
-attributes :task, :description, :complete
+attributes :id, :task, :description, :complete
