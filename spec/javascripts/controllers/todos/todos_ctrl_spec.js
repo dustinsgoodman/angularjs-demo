@@ -1,7 +1,7 @@
 describe('TodosCtrl', function () {
   'use strict';
 
-  var vm, $controller, todosApi, todos;
+  var vm, $controller, todosApi, todos, todoResult;
 
   beforeEach(function () {
     module(function ($provide) {
@@ -33,6 +33,62 @@ describe('TodosCtrl', function () {
         vm.createTodo();
         expect(todosApi.create).toHaveBeenCalled();
       });
+
+      describe('after request finishes', function () {
+        describe('and it succeeds', function () {
+          beforeEach(function () {
+            vm.todos = [];
+            vm.form = {};
+            vm.createTodo();
+            todoResult = {
+              data: {}
+            };
+            todosApi.create.$resolve(todoResult);
+          });
+
+          it('sets vm.form to default', function () {
+            expect(vm.form).toEqual({
+              task: '',
+              description: ''
+            });
+          });
+
+          it('adds result to vm.todos', function () {
+            expect(vm.todos).toEqual([{}]);
+          });
+        });
+
+        describe('and it fails', function () {
+          // @TODO: TBD
+        });
+      });
+    });
+
+    describe('vm.removeTodo()', function () {
+      it('calls destroy on todosApi', function () {
+        spyOn(todosApi, 'destroy').andCallThrough();
+        vm.removeTodo();
+        expect(todosApi.destroy).toHaveBeenCalled();
+      });
+
+      describe('after request finishes', function () {
+        describe('and it succeeds', function () {
+          beforeEach(function () {
+            var todo = { id: 1 };
+            vm.todos = [todo];
+            vm.removeTodo(todo);
+            todosApi.destroy.$resolve();
+          });
+
+          it('removes todo from vm.todos', function () {
+            expect(vm.todos).toEqual([]);
+          });
+        });
+
+        describe('and it fails', function () {
+          // @TODO: TBD
+        });
+      });
     });
   });
 
@@ -44,7 +100,8 @@ describe('TodosCtrl', function () {
 
   function mockTodosApi($mockNgResource) {
     return {
-      create: $mockNgResource(false)
+      create: $mockNgResource(false),
+      destroy: $mockNgResource(false)
     };
   }
 });

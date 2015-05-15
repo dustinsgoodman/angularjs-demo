@@ -12,7 +12,8 @@
       link: link,
       templateUrl: '<%= asset_path("directives/todo.html") %>',
       scope: {
-        todo: '=dgTodo'
+        todo: '=dgTodo',
+        remove: '&remove'
       }
     };
 
@@ -21,6 +22,10 @@
 
       function toggleComplete() {
         todosApi.update({ id: scope.todo.id }, scope.todo);
+      }
+
+      function remove() {
+
       }
     }
   }

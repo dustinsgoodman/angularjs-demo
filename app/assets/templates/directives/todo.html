@@ -1,6 +1,14 @@
-<div data-ng-class="{'complete': todo.complete}">
-  <input type="checkbox"
-         data-ng-model="todo.complete"
-         data-ng-change="toggleComplete()">
-  {{todo.task}}
+<div class="row" data-ng-class="{'complete': todo.complete}">
+  <div class="col-md-10">
+    <input type="checkbox"
+           data-ng-model="todo.complete"
+           data-ng-change="toggleComplete()">
+    {{todo.task}}
+  </div>
+
+  <div class="col-md-2 text-right">
+    <a href="#" class="text-danger" data-ng-click="remove()">
+      <i class="fa fa-trash-o"></i>
+    </a>
+  </div>
 </div>

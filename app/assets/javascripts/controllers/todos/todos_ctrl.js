@@ -10,6 +10,7 @@
     var vm = this;
     vm.todos = todos.data;
     vm.createTodo = createTodo;
+    vm.removeTodo = removeTodo;
 
     function createTodo() {
       todosApi.create({}, vm.form, _success, _error);
@@ -23,6 +24,16 @@
       function _error() {
 
       }
+    }
+
+    function removeTodo(todo) {
+      todosApi.destroy({}, todo, _success, _error);
+
+      function _success() {
+        vm.todos.splice(_.indexOf(_.pluck(vm.todos, 'id'), todo.id), 1);
+      }
+
+      function _error() {}
     }
   }
 })();
