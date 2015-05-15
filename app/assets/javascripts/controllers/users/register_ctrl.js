@@ -18,7 +18,7 @@
     vm.submitRegistration = submitRegistration;
 
     function submitRegistration() {
-      usersApi.create(vm.user, _success, _error);
+      usersApi.create({}, vm.user, _success, _error);
 
       function _success() {
         $location.path('/login');

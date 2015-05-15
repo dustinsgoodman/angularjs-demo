@@ -37,7 +37,7 @@ describe('RegisterCtrl', function () {
         spyOn(usersApi, 'create').andCallThrough();
         vm.submitRegistration();
         expect(usersApi.create).toHaveBeenCalledWith(
-          vm.user, jasmine.any(Function), jasmine.any(Function)
+          {}, vm.user, jasmine.any(Function), jasmine.any(Function)
         );
       });
 
@@ -64,7 +64,7 @@ describe('RegisterCtrl', function () {
 
   function mockUsersApi($mockNgResource) {
     return {
-      create: $mockNgResource()
+      create: $mockNgResource(false)
     };
   }
 });

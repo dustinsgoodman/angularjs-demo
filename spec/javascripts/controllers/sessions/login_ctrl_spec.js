@@ -38,7 +38,7 @@ describe('LoginCtrl', function () {
         spyOn(sessionsApi, 'create').andCallThrough();
         vm.submitLogin();
         expect(sessionsApi.create).toHaveBeenCalledWith(
-          vm.loginForm, jasmine.any(Function), jasmine.any(Function)
+          {}, vm.loginForm, jasmine.any(Function), jasmine.any(Function)
         );
       });
 
@@ -69,7 +69,7 @@ describe('LoginCtrl', function () {
 
   function mockSessionsApi($mockNgResource) {
     return {
-      create: $mockNgResource()
+      create: $mockNgResource(false)
     };
   }
 });

@@ -16,7 +16,7 @@
     vm.submitLogin = submitLogin;
 
     function submitLogin() {
-      sessionsApi.create(vm.loginForm, _success, _error);
+      sessionsApi.create({}, vm.loginForm, _success, _error);
 
       function _success() {
         $location.path('/');
