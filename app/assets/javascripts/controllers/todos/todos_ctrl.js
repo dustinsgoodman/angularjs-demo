@@ -5,11 +5,12 @@
     .module('TodoApp')
     .controller('TodosCtrl', TodosCtrl);
 
-  TodosCtrl.$inject = ['todosApi', 'todos'];
-  function TodosCtrl(todosApi, todos) {
+  TodosCtrl.$inject = ['$location', 'todosApi', 'todos'];
+  function TodosCtrl($location, todosApi, todos) {
     var vm = this;
     vm.todos = todos.data;
     vm.createTodo = createTodo;
+    vm.editTodo = editTodo;
     vm.removeTodo = removeTodo;
 
     function createTodo() {
@@ -24,6 +25,10 @@
       function _error() {
 
       }
+    }
+
+    function editTodo(todo) {
+      $location.path('/' + todo.id);
     }
 
     function removeTodo(todo) {

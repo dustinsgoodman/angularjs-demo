@@ -1,7 +1,7 @@
 describe('TodosCtrl', function () {
   'use strict';
 
-  var vm, $controller, todosApi, todos, todoResult;
+  var vm, $controller, $location, todosApi, todos, todoResult;
 
   beforeEach(function () {
     module(function ($provide) {
@@ -10,8 +10,9 @@ describe('TodosCtrl', function () {
     });
   });
 
-  beforeEach(inject(function (_$controller_, _todosApi_, _todos_) {
+  beforeEach(inject(function (_$controller_, _$location_, _todosApi_, _todos_) {
     $controller = _$controller_;
+    $location = _$location_;
     todosApi = _todosApi_;
     todos = _todos_;
 
@@ -61,6 +62,15 @@ describe('TodosCtrl', function () {
         describe('and it fails', function () {
           // @TODO: TBD
         });
+      });
+    });
+
+    describe('vm.editTodo()', function () {
+      it('changes the path based on the provided todo', function () {
+        var todo = { id: 1 };
+        spyOn($location, 'path').andCallThrough();
+        vm.editTodo(todo);
+        expect($location.path).toHaveBeenCalledWith('/1');
       });
     });
 

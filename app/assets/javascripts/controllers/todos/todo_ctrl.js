@@ -5,9 +5,18 @@
     .module('TodoApp')
     .controller('TodoCtrl', TodoCtrl);
 
-  TodoCtrl.$inject = ['todo'];
-  function TodoCtrl(todo) {
+  TodoCtrl.$inject = ['todosApi', 'todo'];
+  function TodoCtrl(todosApi, todo) {
     var vm = this;
     vm.todo = todo.data;
+    vm.updateTodo = updateTodo;
+
+    function updateTodo() {
+      todosApi.update({}, vm.todo, _success, _error);
+
+      function _success() {}
+
+      function _error() {}
+    }
   }
 })();

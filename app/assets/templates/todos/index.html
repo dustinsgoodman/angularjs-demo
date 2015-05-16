@@ -4,7 +4,7 @@
       Todos
     </h1>
     <ul class="list-unstyled" data-ng-repeat="todo in todos.todos">
-      <li data-dg-todo="todo" data-remove="todos.removeTodo(todo)"></li>
+      <li data-dg-todo="todo" data-edit="todos.editTodo(todo)" data-remove="todos.removeTodo(todo)"></li>
     </ul>
 
     <br>

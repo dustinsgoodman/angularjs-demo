@@ -13,6 +13,7 @@
       templateUrl: '<%= asset_path("directives/todo.html") %>',
       scope: {
         todo: '=dgTodo',
+        edit: '&edit',
         remove: '&remove'
       }
     };
@@ -22,10 +23,6 @@
 
       function toggleComplete() {
         todosApi.update({ id: scope.todo.id }, scope.todo);
-      }
-
-      function remove() {
-
       }
     }
   }
