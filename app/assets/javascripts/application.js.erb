@@ -54,7 +54,7 @@
 
     getTodos.$inject = ['todosApi'];
     function getTodos(todosApi) {
-      return todosApi.index().$promise;
+      return todosApi.index();
     }
 
     getTodo.$inject = ['$route', 'todosApi'];
