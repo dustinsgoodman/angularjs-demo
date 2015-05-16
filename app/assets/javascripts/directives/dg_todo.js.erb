@@ -19,10 +19,16 @@
     };
 
     function link(scope, elem, attr) {
+      scope.showDetails = false;
       scope.toggleComplete = toggleComplete;
+      scope.toggleDetails = toggleDetails;
 
       function toggleComplete() {
         todosApi.update({ id: scope.todo.id }, scope.todo);
+      }
+
+      function toggleDetails() {
+        scope.showDetails = !scope.showDetails;
       }
     }
   }

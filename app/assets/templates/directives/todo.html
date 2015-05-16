@@ -7,11 +7,20 @@
   </div>
 
   <div class="col-md-2 text-right">
+    <a href="#" data-ng-click="toggleDetails()">
+      <i class="fa" data-ng-class="{'fa-eye': !showDetails, 'fa-eye-slash': showDetails}"></i>
+    </a>
     <a href="#" data-ng-click="edit()">
       <i class="fa fa-pencil-square-o"></i>
     </a>
     <a href="#" class="text-danger" data-ng-click="remove()">
       <i class="fa fa-trash-o"></i>
     </a>
+  </div>
+
+  <div class="col-md-10" data-ng-show="showDetails">
+    <p>
+      {{todo.description}}
+    </p>
   </div>
 </div>
