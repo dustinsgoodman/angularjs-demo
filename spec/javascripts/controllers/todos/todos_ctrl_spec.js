@@ -111,7 +111,7 @@ describe('TodosCtrl', function () {
   function mockTodosApi($mockNgResource) {
     return {
       create: $mockNgResource(false),
-      destroy: $mockNgResource(false)
+      destroy: $mockNgResource(true)
     };
   }
 });

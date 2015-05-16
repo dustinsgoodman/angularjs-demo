@@ -32,7 +32,7 @@
     }
 
     function removeTodo(todo) {
-      todosApi.destroy({}, todo, _success, _error);
+      todosApi.destroy(todo, _success, _error);
 
       function _success() {
         vm.todos.splice(_.indexOf(_.pluck(vm.todos, 'id'), todo.id), 1);
