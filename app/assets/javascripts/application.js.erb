@@ -9,11 +9,13 @@
   angular
     .module('TodoApp', [
       'ngRoute',
-      'ngResource'
+      'ngResource',
+      'restangular'
     ])
     .config(locationSettings)
     .config(routeSettings)
-    .config(httpSettings);
+    .config(httpSettings)
+    .config(restangularSettings);
 
   locationSettings.$inject = ['$locationProvider'];
   function locationSettings($locationProvider) {
@@ -102,6 +104,17 @@
         }
         return $q.reject(resp);
       }
+    }
+  }
+
+  restangularSettings.$inject = ['RestangularProvider'];
+  function restangularSettings(RestangularProvider) {
+    RestangularProvider.setBaseUrl('/api');
+    RestangularProvider.setFullResponse(true);
+    RestangularProvider.addResponseInterceptor(responseInterceptor);
+
+    function responseInterceptor(data) {
+      return data.data;
     }
   }
 })();

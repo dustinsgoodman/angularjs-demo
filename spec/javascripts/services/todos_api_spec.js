@@ -1,7 +1,27 @@
 describe('todosApi', function () {
   'use strict';
 
-  var subject;
+  var subject, defaultResponse;
+
+  defaultResponse = {
+    'data': [],
+    'status': 200,
+    'config': {
+      'method': 'GET',
+      'transformRequest': [
+      null
+      ],
+      'transformResponse': [
+      null
+      ],
+      'headers': {
+        'Accept': 'application/json',
+        'If-Modified-Since': 'Mon, 26 Jul 1997 05:00:00 GMT'
+      },
+      'url': '/api/v1/todos'
+    },
+    'statusText': ''
+  };
 
   beforeEach(inject(function (_todosApi_) {
     subject = _todosApi_;
@@ -14,12 +34,12 @@ describe('todosApi', function () {
       $httpBackend = _$httpBackend_;
 
       todosApiRequest = $httpBackend.whenGET('/api/v1/todos');
-      todosApiResponse = {};
+      todosApiResponse = defaultResponse;
       todosApiRequest.respond(todosApiResponse);
     }));
 
-    it('returns an object with a promise', function () {
-      expect(subject.index().$promise).toBePromise();
+    it('returns a promise', function () {
+      expect(subject.index()).toBePromise();
     });
 
     it('gets todos', function () {
@@ -29,15 +49,14 @@ describe('todosApi', function () {
     });
 
     it('resolves promise when all resources are loaded', function () {
-      var promise = subject.index().$promise;
+      var promise = subject.index();
       $httpBackend.flush();
-
       expect(promise).toBeResolvedWith(todosApiResponse);
     });
 
     it('rejects promise when a request fails', function () {
       todosApiRequest.respond(401);
-      var promise = subject.index().$promise;
+      var promise = subject.index();
       $httpBackend.flush();
 
       expect(promise).toBeRejected();
@@ -51,12 +70,12 @@ describe('todosApi', function () {
       $httpBackend = _$httpBackend_;
 
       todosApiRequest = $httpBackend.whenPOST('/api/v1/todos');
-      todosApiResponse = {};
+      todosApiResponse = defaultResponse;
       todosApiRequest.respond(todosApiResponse);
     }));
 
-    it('returns an object with a promise', function () {
-      expect(subject.create().$promise).toBePromise();
+    it('returns a promise', function () {
+      expect(subject.create()).toBePromise();
     });
 
     it('posts todo', function () {
@@ -66,7 +85,7 @@ describe('todosApi', function () {
     });
 
     it('resolves promise when all resources are loaded', function () {
-      var promise = subject.create().$promise;
+      var promise = subject.create();
       $httpBackend.flush();
 
       expect(promise).toBeResolvedWith(todosApiResponse);
@@ -74,7 +93,7 @@ describe('todosApi', function () {
 
     it('rejects promise when a request fails', function () {
       todosApiRequest.respond(401);
-      var promise = subject.create().$promise;
+      var promise = subject.create();
       $httpBackend.flush();
 
       expect(promise).toBeRejected();
@@ -92,8 +111,8 @@ describe('todosApi', function () {
       todosApiRequest.respond(todosApiResponse);
     }));
 
-    it('returns an object with a promise', function () {
-      expect(subject.show({ id: 1 }).$promise).toBePromise();
+    it('returns a promise', function () {
+      expect(subject.show({ id: 1 })).toBePromise();
     });
 
     it('gets todo', function () {
@@ -103,7 +122,7 @@ describe('todosApi', function () {
     });
 
     it('resolves promise when all resources are loaded', function () {
-      var promise = subject.show({ id: 1 }).$promise;
+      var promise = subject.show({ id: 1 });
       $httpBackend.flush();
 
       expect(promise).toBeResolvedWith(todosApiResponse);
@@ -111,7 +130,7 @@ describe('todosApi', function () {
 
     it('rejects promise when a request fails', function () {
       todosApiRequest.respond(401);
-      var promise = subject.show({ id: 1 }).$promise;
+      var promise = subject.show({ id: 1 });
       $httpBackend.flush();
 
       expect(promise).toBeRejected();
@@ -129,8 +148,8 @@ describe('todosApi', function () {
       todosApiRequest.respond(todosApiResponse);
     }));
 
-    it('returns an object with a promise', function () {
-      expect(subject.update({ id: 1 }).$promise).toBePromise();
+    it('returns a promise', function () {
+      expect(subject.update({ id: 1 })).toBePromise();
     });
 
     it('puts todo', function () {
@@ -140,7 +159,7 @@ describe('todosApi', function () {
     });
 
     it('resolves promise when all resources are loaded', function () {
-      var promise = subject.update({ id: 1 }).$promise;
+      var promise = subject.update({ id: 1 });
       $httpBackend.flush();
 
       expect(promise).toBeResolvedWith(todosApiResponse);
@@ -148,7 +167,7 @@ describe('todosApi', function () {
 
     it('rejects promise when a request fails', function () {
       todosApiRequest.respond(401);
-      var promise = subject.update({ id: 1 }).$promise;
+      var promise = subject.update({ id: 1 });
       $httpBackend.flush();
 
       expect(promise).toBeRejected();
@@ -166,8 +185,8 @@ describe('todosApi', function () {
       todosApiRequest.respond(todosApiResponse);
     }));
 
-    it('returns an object with a promise', function () {
-      expect(subject.destroy({ id: 1 }).$promise).toBePromise();
+    it('returns a promise', function () {
+      expect(subject.destroy({ id: 1 })).toBePromise();
     });
 
     it('deletes user', function () {
@@ -177,7 +196,7 @@ describe('todosApi', function () {
     });
 
     it('resolves promise when all resources are loaded', function () {
-      var promise = subject.destroy({ id: 1 }).$promise;
+      var promise = subject.destroy({ id: 1 });
       $httpBackend.flush();
 
       expect(promise).toBeResolvedWith(todosApiResponse);
@@ -185,7 +204,7 @@ describe('todosApi', function () {
 
     it('rejects promise when a request fails', function () {
       todosApiRequest.respond(401);
-      var promise = subject.destroy({ id: 1 }).$promise;
+      var promise = subject.destroy({ id: 1 });
       $httpBackend.flush();
 
       expect(promise).toBeRejected();
