@@ -1,0 +1,22 @@
+(function () {
+  'use strict';
+
+  angular
+    .module('TodoApp')
+    .config(authRouteSettings);
+
+  authRouteSettings.$inject = ['$routeProvider'];
+  function authRouteSettings($routeProvider) {
+    $routeProvider
+      .when('/register', {
+        templateUrl: '<%= asset_path("users/new.html") %>',
+        controller: 'RegisterCtrl',
+        controllerAs: 'register'
+      })
+      .when('/login', {
+        templateUrl: '<%= asset_path("sessions/new.html") %>',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
+      });
+  }
+})();

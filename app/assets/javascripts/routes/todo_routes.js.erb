@@ -1,0 +1,38 @@
+(function () {
+  'use strict';
+
+  angular
+    .module('TodoApp')
+    .config(todoRouteSettings);
+
+  todoRouteSettings.$inject = ['$routeProvider'];
+  function todoRouteSettings($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: '<%= asset_path("todos/index.html") %>',
+        controller: 'TodosCtrl',
+        controllerAs: 'todos',
+        resolve: {
+          todos: getTodos
+        }
+      })
+      .when('/:id', {
+        templateUrl: '<%= asset_path("todos/show.html") %>',
+        controller: 'TodoCtrl',
+        controllerAs: 'todo',
+        resolve: {
+          todo: getTodo
+        }
+      });
+
+    getTodos.$inject = ['todosApi'];
+    function getTodos(todosApi) {
+      return todosApi.index();
+    }
+
+    getTodo.$inject = ['$route', 'todosApi'];
+    function getTodo($route, todosApi) {
+      return todosApi.show({ id: $route.current.params.id });
+    }
+  }
+})();
