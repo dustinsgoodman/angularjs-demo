@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-10" ng-class="{'complete': $ctrl.todo.complete}">
+    <input type="checkbox"
+           ng-model="$ctrl.todo.complete"
+           ng-change="$ctrl.toggleComplete()">
+    {{ $ctrl.todo.task }}
+  </div>
+
+  <div class="col-md-2 text-right">
+    <a href="#" ng-click="$ctrl.toggleDetails()">
+      <i class="fa" ng-class="{'fa-eye': !$ctrl.showDetails, 'fa-eye-slash': $ctrl.showDetails}"></i>
+    </a>
+    <a href="#" ng-click="edit()">
+      <i class="fa fa-pencil-square-o"></i>
+    </a>
+    <a href="#" class="text-danger" ng-click="remove()">
+      <i class="fa fa-trash-o"></i>
+    </a>
+  </div>
+
+  <div class="col-md-10" ng-show="$ctrl.showDetails">
+    <p>
+      {{ $ctrl.todo.description }}
+    </p>
+  </div>
+</div>

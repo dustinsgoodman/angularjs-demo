@@ -1,0 +1,30 @@
+(function () {
+  'use strict';
+
+  angular
+    .module('TodoApp')
+    .component('todoListItem', {
+      controller: todoListItemCtrl,
+      templateUrl: '<%= asset_path("components/todo_list_item.html") %>',
+      bindings: {
+        todo: '<'
+      }
+    });
+
+  todoListItemCtrl.$inject = ['todosApi'];
+  function todoListItemCtrl(todosApi) {
+    var vm = this;
+
+    vm.showDetails = false;
+    vm.toggleComplete = toggleComplete;
+    vm.toggleDetails = toggleDetails;
+
+    function toggleComplete() {
+      todosApi.update({ id: vm.todo.id }, vm.todo);
+    }
+
+    function toggleDetails() {
+      vm.showDetails = !vm.showDetails;
+    }
+  }
+})();
